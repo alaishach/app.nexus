@@ -1,33 +1,469 @@
-src -> packages
-- app -> Core function of the app
-- data -> Manages data storage, export, import, filter, search, modify and audit
-- exceptions -> Manages all app, user and data exceptions
-- mobile -> Mobile application modules
-- templates -> Manages the creation of all task templates (system and user created)
-- timer ->
-- ui -> Manages system themes, display of data, navigation, and user input
-- user -> Management of user profile, connection to other users, user specific settings
-- utils ->
-utils/
-├── AppConstants.java
-├── FileUtils.java
-├── JsonUtils.java
-├── DateTimeUtils.java
-├── ValidationUtils.java
-├── PathUtils.java
-├── TaskUtils.java
-├── ReminderUtils.java
-├── TemplateUtils.java
-├── BackupUtils.java
-├── ThemeUtils.java
-├── UIUtils.java
-├── ShortcutUtils.java
-├── FXMLLoaderUtils.java
-├── UUIDUtils.java
-├── ApiUtils.java
-├── SyncUtils.java
-├── LoggerUtils.java
-└── EncryptionUtils.java  // (Optional, later)
+Work on ->
+- Utils Modules as I am working on others
+- Task Module
+- Data Module
+- User Module
+- Timer Module
+- Ui Module
 
-- web -> Web Application Modules
+src -> packages
+
+Summary
+- App, Data, Exceptions, Mobile, Templates, Timer, UI , User, Utils, Web
+
+app/
+├── App.java                  // Main entry point for launching the application
+├── AppInitializer.java       // Initializes app-wide configurations and settings
+├── AppController.java        // High-level controller for app state and UI flow
+├── AppWindow.java            // Main application window (UI container)
+├── AppConfig.java            // Global app configuration (constants, settings)
+├── AppLogger.java            // Centralized logging functionality
+├── AppUpdater.java           // Handles automatic app updates (future-proofing)
+├── AppErrorHandler.java      // Centralized error handling and reporting
+├── AppNotification.java      // Display notifications to the user
+├── AppAnalytics.java         // App usage analytics and tracking
+├── AppLocalization.java      // Manage localization (multiple languages)
+├── AppSettings.java          // Manages global app settings (notifications, theme)
+├── AppFeedback.java          // Collect feedback from users
+└── AppTaskScheduler.java     // Handles background tasks (sync, reminders)
+
+data/
+├── DataManager.java             // Centralized class for managing data operations
+├── TaskData.java                // Task data model (stores task-related information)
+├── UserData.java                // User-related data management (user settings, profiles)
+├── DataStorage.java             // Handles data persistence (e.g., file/database storage)
+├── DataBackup.java              // Handles backups and restoring data
+├── DataSync.java                // Synchronizes data (cloud, between devices, etc.)
+├── DataExport.java              // Exports data to formats (CSV, JSON, etc.)
+├── DataImport.java              // Imports data from formats (CSV, JSON, etc.)
+├── DataSearch.java              // Class for handling search functionality
+├── DataFilter.java              // Class for handling filtering functionality
+├── DataModification.java        // Class for handling data modification (e.g., edit, delete)
+├── DataValidation.java          // Validates data before saving it (e.g., check for errors)
+├── DataConfig.java              // Manages configuration settings for data-related operations
+├── DataEncryption.java          // Encrypts sensitive data (e.g., passwords, personal info)
+├── DataCompression.java         // Handles compressing large data sets for storage or transport
+├── DataMigration.java           // Migrates data when the schema or storage changes
+└── DataLogger.java              // Logs data-related operations for auditing and debugging
+
+exceptions/
+├── AppException.java             // Base class for all custom exceptions
+├── UserNotFoundException.java    // Custom exception for user-related errors
+├── TaskNotFoundException.java   // Custom exception for task-related errors
+├── DataSyncException.java       // Custom exception for data sync errors
+├── DataImportException.java     // Custom exception for data import errors
+├── DataExportException.java     // Custom exception for data export errors
+├── BackupException.java         // Custom exception for backup-related errors
+├── InvalidDataException.java    // Custom exception for invalid data input
+├── PermissionDeniedException.java // Custom exception for permission errors
+├── NetworkException.java        // Custom exception for network-related issues
+├── AuthenticationException.java // Custom exception for authentication issues
+├── ConfigurationException.java  // Custom exception for config errors
+├── DatabaseException.java       // Custom exception for database-related errors
+├── InvalidFileFormatException.java // Custom exception for invalid file formats
+├── ApiException.java            // Custom exception for API call failures
+└── ExceptionHandler.java        // Handles the catching and logging of exceptions
+
+
+mobile/
+├── MobileApp.java                    // Mobile-specific app launcher (entry point)
+│
+├── ui/                               // Touch-friendly, simplified layouts for mobile
+│   ├── MobileMainView.java          // Main dashboard or screen
+│   ├── MobileTaskView.java          // Task list (scrollable, tapable)
+│   └── MobileCalendarView.java      // Calendar view optimized for smaller screens
+│
+├── input/                            // Mobile-specific input handling
+│   ├── TouchHandler.java            // Touch, tap, swipe, long-press, drag
+│   └── ShortcutHandler.java         // Gesture-based shortcuts or quick actions
+│
+├── notifications/                    // Reminders, alerts, and mobile notifications
+│   └── NotificationManager.java     // Schedule and display task/event reminders
+│
+├── navigation/                       // Navigation between mobile views/screens
+│   ├── ScreenManager.java           // Handles switching between screens
+│   └── NavigationEvent.java         // Enum or class for defining navigation actions
+│
+├── services/                         // Sync, backup, or background services
+│   ├── MobileSyncService.java       // Handles sync on limited network or background
+│   └── MobileBackupService.java     // Mobile-adapted backup logic
+│
+├── storage/                          // Platform-safe mobile storage
+│   ├── MobileFileManager.java       // Local file handling for tasks, backups
+│   └── SecureStorage.java           // Secure storage (tokens, credentials, etc.)
+│
+├── theme/                            // Mobile-specific theme adaptation
+│   ├── MobileThemeManager.java      // Detects and applies light/dark/custom themes
+│   └── MobileThemeLoader.java       // Loads saved themes for mobile UI
+│
+├── analytics/                        // Optional: usage tracking, logs
+│   ├── EventTracker.java            // Track user interactions (for debug or analytics)
+│   └── CrashLogger.java             // Logs crashes/errors during runtime
+│
+├── platform/                         // Optional: Cross-platform support (Android, iOS)
+│   ├── PlatformAdapter.java         // Interface to abstract platform behaviors
+│   ├── AndroidAdapter.java          // Android-specific code
+│   └── IOSAdapter.java              // iOS-specific code
+│
+└── utils/                            // Misc mobile helpers
+    └── MobileUtils.java             // DPI scaling, screen size detection, etc.
+
+templates/
+├── TemplateManager.java                  // Main entry for managing task templates
+├── TemplateLoader.java                   // Loads built-in or user-defined templates
+├── TemplateSaver.java                    // Saves new or custom templates
+├── TemplateCategory.java                 // Enum for grouping templates (e.g., Grocery, School, Fitness)
+├── TaskTemplate.java                     // POJO: defines a task template structure
+│
+└── categories/
+    ├── GroceryTemplate.java
+    ├── ChoresTemplate.java
+    ├── StudyPlannerTemplate.java
+    ├── HobbyTemplate.java
+    ├── WellnessTemplate.java
+    ├── FitnessTemplate.java
+    ├── TravelTemplate.java
+    ├── EventPlanningTemplate.java
+    ├── WorkTemplate.java
+    ├── CareTemplate.java
+    ├── MovingTemplate.java
+    ├── SelfCareTemplate.java
+    ├── MaintenanceTemplate.java
+    ├── FinanceTemplate.java
+    ├── SkillLearningTemplate.java
+    └── CustomTemplate.java
+
+timer/
+├── TimerManager.java                      // Core timer logic & Pomodoro control
+├── TimerSession.java                      // Represents a single Pomodoro session
+├── TimerMode.java                         // Enum: WORK, SHORT_BREAK, LONG_BREAK
+├── TimerSettings.java                     // Stores per-user configuration
+├── TimerState.java                        // Tracks current state & transitions
+│
+├── integration/
+│   └── TaskTimerLinker.java               // Binds timer to a task and tracks progress
+│
+├── sound/
+│   ├── SoundPlayer.java                   // Handles ringtone playback
+│   ├── RingtoneManager.java               // Lists, loads, and plays custom ringtones
+│   └── DefaultRingtones.java              // Built-in sounds
+│
+├── ui/
+│   ├── TimerUIController.java             // GUI logic for displaying timer
+│   └── TimerSettingsView.java             // UI screen to change timer options
+│
+├── settings/
+│   └── TimerSettingsManager.java          // Loads/saves user-specific timer settings
+│
+├── history/
+│   ├── TimerHistoryManager.java           // Logs past sessions for stats
+│   └── TimerSessionRecord.java            // Represents a completed session
+│
+└── utils/
+    └── TimerUtils.java                    // Helpers: format time, delays, etc.
+
+ui/
+├── MainMenu.java
+│   ├── NavigationBar.java        // Navigation bar UI (top or side)
+│   ├── MenuItem.java             // Represents each menu item (e.g., Tasks, Timer, Settings)
+│   └── MenuHandler.java         // Handles the opening/closing of menus and transitions
+│
+├── TaskView.java
+│   ├── CalendarView.java        // Calendar view of tasks
+│   ├── ListView.java            // List view of tasks (detailed list)
+│   ├── WeekView.java            // Week-based task view
+│   ├── DayView.java             // Day-based task view
+│   └── TaskViewManager.java     // Manages task views switching (week, day, month)
+│
+├── TaskPopup.java
+│   ├── TaskDetailsView.java     // Displays task details in a popup (editable fields)
+│   ├── TaskSubtaskView.java     // Displays and manages task subtasks
+│   ├── TaskTimerView.java       // Optionally displays the timer within task popup
+│   └── TaskActions.java         // Handles task-specific actions (edit, check off, etc.)
+│
+├── SearchBar.java
+│   ├── SearchField.java         // The input field for searching tasks
+│   ├── SearchResultsView.java   // Displays search results
+│   └── SearchHandler.java       // Handles search logic (by date, name, etc.)
+│
+├── TaskCreationView.java
+│   ├── TaskForm.java            // The form for creating new tasks (fields for task name, description)
+│   ├── TemplateSelector.java    // Lets the user choose from templates (system/custom)
+│   ├── TaskCategorySelector.java// Selects a task category (work, personal, etc.)
+│   └── TaskCreator.java         // Handles the creation process and task validation
+│
+├── TaskCategoryView.java
+│   ├── CategoryListView.java    // Displays all available categories for tasks
+│   ├── CategorySelection.java   // Allows users to select a category when creating/editing tasks
+│   └── CategoryManager.java     // Manages adding/removing/editing task categories
+│
+├── TimerView.java
+│   ├── PomodoroTimer.java       // Core Pomodoro timer logic (countdown, start/stop, etc.)
+│   ├── TimerDisplay.java        // Displays the timer countdown and controls
+│   ├── TimerSound.java          // Plays the sound/ringtone when timer ends
+│   └── TimerControls.java       // Handles actions like start, stop, reset, pause
+│
+├── TimerSettingsView.java
+│   ├── TimerPreferencesForm.java// UI for configuring timer settings (e.g., work/break time)
+│   ├── SoundPreferences.java    // Allows users to choose timer sounds/ringtones
+│   └── TimerSettingsManager.java// Manages saving and applying user preferences for the timer
+│
+├── ProjectView.java
+│   ├── KanbanBoard.java         // Displays tasks in Kanban columns (To Do, In Progress, Done)
+│   ├── ProjectListView.java     // Displays a list of projects
+│   ├── ProjectBoardManager.java // Manages the project views (e.g., adding/removing tasks, moving between columns)
+│   └── ProjectTaskView.java     // Displays tasks associated with a specific project
+│
+├── ProjectProgressView.java
+│   ├── ProgressBar.java         // Visualizes the progress of the project (tasks completed vs pending)
+│   ├── TaskCompletionChart.java // A more detailed view of tasks and their completion rates
+│   └── MilestoneTracker.java    // Tracks and displays project milestones
+│
+├── FriendListView.java
+│   ├── FriendProgressView.java  // Displays progress of tasks for each friend
+│   ├── FriendSearchBar.java     // Allows searching friends (if the list is large)
+│   └── FriendListManager.java   // Manages the friends list (add, remove, block, etc.)
+│
+├── TemplateListView.java
+│   ├── SystemTemplatesView.java // Displays built-in task templates (grocery list, chores, etc.)
+│   ├── UserTemplatesView.java   // Displays user-created task templates
+│   ├── TemplateManager.java     // Manages adding/editing/deleting templates
+│   └── TemplatePreview.java     // Previews a template before it is used
+│
+├── SettingsView.java
+│   ├── GeneralSettings.java     // UI for general app settings (language, theme, etc.)
+│   ├── NotificationSettings.java// UI for managing notification preferences
+│   ├── AccountSettings.java     // UI for account management (username, email, etc.)
+│   └── SettingsManager.java     // Manages saving and loading settings
+│
+└── ExportView.java
+    ├── ExportFormatSelector.java// Allows the user to choose export format (CSV, PDF, etc.)
+    ├── ExportOptions.java       // UI for selecting data to export (tasks, history, etc.)
+    ├── ExportProgressBar.java   // Displays progress when exporting data
+    └── ExportManager.java       // Handles the export logic and file saving
+
+user/
+├── User.java                    // The user model (contains user-specific details like ID, name, etc.)
+├── UserManager.java             // Manages user login, logout, registration, and session management
+├── UserPreferences.java         // Stores user-specific settings like theme, language, etc.
+├── UserDataManager.java         // Manages saving/loading user-related data (tasks, preferences, etc.)
+├── UserAuthentication.java      // Handles user authentication (login, registration, password validation)
+├── UserSession.java             // Stores the current session details for the logged-in user
+├── UserProfile.java             // User profile management (profile picture, bio, etc.)
+├── UserSettings.java            // Manages user-specific settings (email, password, etc.)
+├── Friend.java                  // Represents a friend object (contains friend ID, status, etc.)
+├── FriendManager.java           // Manages adding/removing friends and their status (online/offline)
+├── FriendConnection.java        // Manages the connection and status (active, idle, blocked, etc.)
+├── FriendRequests.java          // Handles incoming/outgoing friend requests
+├── UserActivityLog.java         // Tracks user activities (e.g., login times, tasks completed, etc.)
+├── UserNotifications.java       // Manages notifications related to the user (e.g., task reminders, friend updates)
+└── UserBackupManager.java       // Manages the backup and restoration of user data (tasks, settings, etc.)
+
+utils/
+├── AppConstants.java                   // Holds constant values used throughout the app
+├── PathUtils.java                      // Utility methods for managing file paths and directories
+│   ├── PathValidator.java              // Validates if a path is correct
+│   ├── PathResolver.java               // Resolves relative paths
+│   └── PathCombiner.java               // Combines multiple path components into a full path
+├── TaskUtils.java                      // Utility methods related to task creation, editing, and management
+│   ├── TaskPriorityUtils.java          // Handles task priority assignment and management
+│   ├── TaskStatusUtils.java            // Manages task statuses (e.g., pending, completed)
+│   └── TaskDeadlineUtils.java          // Handles task deadline operations
+├── TemplateUtils.java                  // Utilities for managing templates (e.g., task templates)
+│   ├── TemplateLoader.java             // Loads predefined templates (e.g., grocery lists, chores)
+│   ├── TemplateValidator.java          // Validates task templates for correctness
+│   └── TemplateEditor.java             // Allows editing and customization of templates
+├── BackupUtils.java                    // Utilities for handling backups (e.g., backup creation, restoration)
+│   ├── BackupScheduler.java            // Schedules backups (e.g., daily, weekly)
+│   ├── BackupRestorer.java             // Restores a backup from a previous point in time
+│   └── BackupValidator.java            // Validates backup integrity
+├── ThemeUtils.java                     // Utilities for handling and applying themes (e.g., light, dark mode)
+│   ├── ThemeManager.java               // Manages the active theme (light, dark, custom)
+│   ├── ThemeLoader.java                // Loads a theme based on user preferences
+│   └── ThemeEditor.java                // Allows users to create and edit custom themes
+├── ShortcutUtils.java                  // Utilities for managing keyboard shortcuts and custom keybindings
+│   ├── ShortcutMapper.java             // Maps keyboard shortcuts to specific actions
+│   ├── ShortcutValidator.java          // Validates whether a shortcut is available
+│   └── ShortcutRemapper.java           // Allows remapping keyboard shortcuts
+├── FXMLLoaderUtils.java                // Utilities for loading FXML files (if using JavaFX)
+│   ├── FXMLLoaderHelper.java          // Helper functions for loading and managing FXML files
+│   ├── FXMLLoaderValidator.java       // Validates FXML files for correctness
+│   └── FXMLLoaderCache.java            // Caches loaded FXML files to optimize performance
+├── UUIDUtils.java                      // Utilities for generating and handling UUIDs
+│   ├── UUIDGenerator.java              // Generates random or specific UUIDs
+│   ├── UUIDValidator.java              // Validates the structure and validity of UUIDs
+│   └── UUIDFormatter.java              // Formats UUIDs for display or storage
+├── SyncUtils.java                      // Utilities for synchronizing data (e.g., syncing tasks across devices)
+│   ├── SyncScheduler.java              // Schedules synchronization intervals
+│   ├── SyncManager.java                // Manages data syncing process
+│   └── SyncConflictResolver.java       // Resolves conflicts during data sync (e.g., two versions of the same task)
+├── DateUtils.java                      // Utility methods for date-related operations
+│   ├── DateFormatter.java              // Formatting and parsing dates
+│   ├── DateComparison.java             // Comparing dates (e.g., task deadlines)
+│   └── DateRangeUtils.java             // Handling date ranges (e.g., start and end of tasks)
+├── ValidationUtils.java                // Data validation utilities
+│   ├── EmailValidator.java             // Validates email addresses
+│   ├── PasswordValidator.java          // Validates passwords
+│   ├── TaskValidator.java              // Validates task-related data (title, dates)
+│   └── PhoneNumberValidator.java       // Validates phone numbers
+├── FileUtils.java                      // Utility methods for file handling
+│   ├── FileReader.java                 // Reading files (CSV, JSON, etc.)
+│   ├── FileWriter.java                 // Writing data to files
+│   ├── FileBackupUtils.java            // Backup-related utilities
+│   └── FileUploader.java               // File upload handling (e.g., images, docs)
+├── EncryptionUtils.java                // Utility methods for data encryption and decryption
+│   ├── AESUtils.java                   // AES encryption/decryption methods
+│   ├── RSAUtils.java                   // RSA encryption/decryption methods
+│   ├── HashingUtils.java               // Hashing utilities (e.g., SHA-256)
+│   └── TokenUtils.java                 // Token generation and validation
+├── StringUtils.java                    // Utility methods for string manipulation
+│   ├── StringFormatter.java            // String formatting (e.g., title case, lowercase)
+│   ├── StringSplitter.java             // Splitting strings (e.g., by commas, spaces)
+│   ├── StringCleaner.java              // Removing unwanted characters (e.g., trimming)
+│   └── StringComparator.java           // String comparison (e.g., case-insensitive)
+├── NotificationUtils.java              // Utility methods for notifications
+│   ├── EmailNotificationUtils.java     // Sending email notifications
+│   ├── PushNotificationUtils.java      // Handling push notifications
+│   ├── SMSNotificationUtils.java       // Sending SMS notifications
+│   └── NotificationScheduler.java      // Scheduling notifications (e.g., reminders)
+├── UIUtils.java                        // Utility methods for UI-related tasks
+│   ├── UIComponentFactory.java         // Creating UI components programmatically
+│   ├── LayoutUtils.java                // Layout handling (e.g., grid, list views)
+│   ├── EventUtils.java                 // Event handling for UI elements (e.g., button clicks)
+│   └── ThemeUtils.java                 // Handling themes (e.g., dark mode, light mode)
+├── TimerUtils.java                     // Utility methods for timer-related functions
+│   ├── PomodoroTimer.java              // Pomodoro timer logic
+│   ├── TimerScheduler.java             // Scheduling timer tasks
+│   ├── TimerUtils.java                // General timer utilities (e.g., start, stop timers)
+│   └── TimerSettings.java              // User-specific timer settings (e.g., duration, break times)
+├── APIUtils.java                       // Utility methods for API interactions
+│   ├── APIRequestBuilder.java          // Building API requests
+│   ├── APIResponseParser.java          // Parsing API responses (e.g., JSON)
+│   └── APIErrorHandler.java            // Handling API errors (e.g., retries, timeouts)
+├── JSONUtils.java                      // Utility methods for JSON manipulation
+│   ├── JSONParser.java                 // Parsing JSON data
+│   ├── JSONFormatter.java              // Formatting JSON data (e.g., pretty print)
+│   └── JSONValidator.java              // Validating JSON schema
+├── CloudStorageUtils.java              // Utility methods for interacting with cloud services
+│   ├── CloudFileUploader.java          // Uploading files to the cloud (e.g., Google Drive, Dropbox)
+│   ├── CloudFileDownloader.java        // Downloading files from the cloud
+│   └── CloudBackupUtils.java           // Cloud backup utilities
+├── SecurityUtils.java                  // Security-related utility methods
+│   ├── TokenManager.java               // Token management (e.g., JWT)
+│   ├── OAuthUtils.java                 // OAuth integration (e.g., Google, Facebook)
+│   ├── EncryptionManager.java          // Managing encryption keys and algorithms
+│   └── AccessControlUtils.java         // User access control (roles, permissions)
+├── MathUtils.java                      // Utility methods for math operations
+│   ├── Calculator.java                 // Simple calculator functions
+│   ├── SortingUtils.java               // Sorting algorithms (e.g., quicksort, mergesort)
+│   └── SchedulerUtils.java             // Task scheduling algorithms
+├── LocaleUtils.java                    // Utility methods for localization and internationalization
+│   ├── LocaleManager.java              // Managing multiple languages and regions
+│   ├── CurrencyFormatter.java          // Formatting currency values
+│   └── TranslationUtils.java           // Handling translations and text for different languages
+├── NetworkUtils.java                   // Utility methods for network interactions
+│   ├── NetworkMonitor.java             // Monitoring network connectivity
+│   ├── APIConnectionChecker.java       // Checking server connectivity status
+│   └── NetworkUtils.java               // General network utilities (e.g., ping)
+├── ImageUtils.java                     // Utility methods for image processing
+│   ├── ImageResizer.java               // Resizing images
+│   ├── ImageCropper.java               // Cropping images
+│   ├── ImageWatermark.java             // Adding watermark to images
+│   └── ImageFilter.java                // Applying filters to images (e.g., grayscale)
+├── LoggerUtils.java                    // Utility methods for logging
+│   ├── LogManager.java                 // Managing log files and settings
+│   ├── FileLogger.java                 // Writing logs to a file
+│   └── EventLogger.java                // Logging specific events or actions in the app
+├── CacheUtils.java                     // Utility methods for caching
+│   ├── MemoryCache.java                // In-memory caching
+│   ├── DiskCache.java                  // Disk-based caching
+│   └── CacheManager.java               // Managing cache invalidation and expiration
+└── AppVersionUtils.java                // Utility methods for version control
+    ├── VersionChecker.java             // Checking app version (e.g., for updates)
+    ├── VersionManager.java             // Handling version-specific behavior
+    └── AppUpdateUtils.java             // Managing app updates
+
+web/
+├── WebApp.java                        // Main entry point for the web app
+├── WebController.java                 // Manages HTTP routing
+│   ├── PageController.java            // Routes page-specific requests
+│   ├── APIRouteController.java        // Manages API routes
+│   └── ErrorHandlerController.java    // Handles errors and redirection
+├── WebView.java                       // Renders HTML views
+│   ├── TaskView.java                  // Task list rendering
+│   ├── UserProfileView.java           // User profile rendering
+│   ├── TemplateView.java              // Template selection rendering
+│   └── FriendView.java                // Friend list rendering
+├── WebSession.java                    // Manages user session
+│   ├── SessionStorage.java            // Session storage logic
+│   ├── SessionValidation.java         // Validates active session
+│   └── SessionLogout.java             // Handles logout logic
+├── WebAuthentication.java             // Login, registration, etc.
+│   ├── LoginHandler.java              // Manages login requests
+│   ├── RegistrationHandler.java       // Manages user registration
+│   └── AuthenticationUtils.java      // Password encryption, token management
+├── WebUserManager.java                // User profile & settings
+│   ├── UserProfile.java               // Manages user profile data
+│   ├── UserSettings.java              // Manages user-specific settings
+│   └── UserActivityLog.java           // Tracks user activities
+├── WebAPIController.java              // API routing
+│   ├── TaskAPI.java                   // Task-related API endpoints
+│   ├── UserAPI.java                   // User-related API endpoints
+│   ├── FriendAPI.java                 // Friend-related API endpoints
+│   ├── NotificationAPI.java           // Notification-related API endpoints
+│   └── ExportAPI.java                 // Export-related API endpoints
+├── WebTaskManager.java                // Task-related logic
+│   ├── TaskCreation.java              // Logic for creating tasks
+│   ├── TaskEditor.java                // Logic for editing tasks
+│   ├── TaskDeletion.java              // Logic for deleting tasks
+│   └── TaskSearchFilter.java          // Logic for searching/filtering tasks
+├── WebTemplateManager.java            // Task template management
+│   ├── SystemTemplates.java           // System-defined templates
+│   ├── CustomTemplates.java           // User-defined templates
+│   └── TemplateEditor.java            // Logic for editing templates
+├── WebFriendManager.java              // Friend-related logic
+│   ├── FriendRequestHandler.java      // Manages sending/receiving friend requests
+│   ├── FriendList.java                // Manages friend list and status
+│   ├── FriendProgress.java            // Tracks friend task completion
+│   └── FriendNotifications.java      // Manages notifications about friends' actions
+├── WebNotificationManager.java        // Notification management
+│   ├── TaskReminderNotifications.java // Manages task due reminder notifications
+│   ├── FriendNotifications.java       // Manages friend-related notifications
+│   ├── NotificationSettings.java      // Manages notification preferences
+│   └── RealTimeNotifications.java     // Handles real-time notifications (push, WebSockets)
+├── WebBackupManager.java              // Backup management
+│   ├── BackupCreation.java            // Handles user data backup creation
+│   ├── BackupRestore.java             // Manages restoring backup data
+│   └── CloudBackup.java               // Manages backups to cloud services (Google Drive, Dropbox)
+├── WebExportManager.java              // Export management
+│   ├── CSVExport.java                 // Exports data to CSV format
+│   ├── PDFExport.java                 // Exports data to PDF format
+│   ├── ExcelExport.java               // Exports data to Excel format
+│   └── ExportSettings.java            // User settings for exports (format, range)
+├── WebSettings.java                   // Settings management
+│   ├── ThemeSettings.java             // Manages application theme (dark mode, light mode)
+│   ├── LanguageSettings.java          // Manages language selection for the UI
+│   ├── TaskViewSettings.java          // Task view settings (list view, calendar view)
+│   └── PrivacySettings.java           // Manages privacy settings (who can view tasks, etc.)
+├── WebWebSocketManager.java           // Real-time updates using WebSockets
+│   ├── FriendStatusWebSocket.java     // Real-time friend status updates (online/offline)
+│   ├── TaskUpdateWebSocket.java       // Real-time task updates (completion, creation)
+│   ├── LiveChatWebSocket.java         // Real-time chat with friends
+│   └── RealTimeFeed.java              // Handles real-time notification feed
+├── WebUIUtils.java                    // Utility methods for UI components and interactions
+│   ├── UIComponentUtils.java          // Handles UI component rendering (buttons, forms)
+│   ├── EventUtils.java                // Manages UI events (clicks, hover, drag-and-drop)
+│   ├── FormValidationUtils.java       // Validates user input in forms (email, password)
+│   └── LayoutUtils.java               // Manages layout-related utilities
+├── WebAPIService.java                 // Core business logic for API operations
+│   ├── TaskService.java               // Task-related business logic
+│   ├── UserService.java               // User-related business logic
+│   ├── FriendService.java             // Friend-related business logic
+│   ├── NotificationService.java       // Notification-related business logic
+│   └── BackupService.java             // Backup-related business logic
+└── WebDataValidator.java              // Data validation for user inputs and API responses
+    ├── TaskValidator.java             // Validates task-related data
+    ├── UserValidator.java             // Validates user-related data
+    ├── FriendValidator.java           // Validates friend-related data
+    └── ExportValidator.java           // Validates data for export functionality
 
