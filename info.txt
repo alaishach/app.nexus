@@ -1,0 +1,33 @@
+src -> packages
+- app -> Core function of the app
+- data -> Manages data storage, export, import, filter, search, modify and audit
+- exceptions -> Manages all app, user and data exceptions
+- mobile -> Mobile application modules
+- templates -> Manages the creation of all task templates (system and user created)
+- timer ->
+- ui -> Manages system themes, display of data, navigation, and user input
+- user -> Management of user profile, connection to other users, user specific settings
+- utils ->
+utils/
+├── AppConstants.java
+├── FileUtils.java
+├── JsonUtils.java
+├── DateTimeUtils.java
+├── ValidationUtils.java
+├── PathUtils.java
+├── TaskUtils.java
+├── ReminderUtils.java
+├── TemplateUtils.java
+├── BackupUtils.java
+├── ThemeUtils.java
+├── UIUtils.java
+├── ShortcutUtils.java
+├── FXMLLoaderUtils.java
+├── UUIDUtils.java
+├── ApiUtils.java
+├── SyncUtils.java
+├── LoggerUtils.java
+└── EncryptionUtils.java  // (Optional, later)
+
+- web -> Web Application Modules
+
